@@ -89,6 +89,9 @@ class _CommonDatePickerState extends State<CommonDatePicker> {
         lastDate: DateTime.now().add(
             const Duration(days: 0, minutes: 0, seconds: 1, milliseconds: 1)));
 
+    if (picked == null) {
+      return;
+    }
     DateTime date = DateTime.parse(picked.toString());
 
     if (widget.save == 0) {
@@ -97,7 +100,7 @@ class _CommonDatePickerState extends State<CommonDatePicker> {
 
     String formattedDate = DateFormat('yyyy-MM-dd').format(date);
 
-    if (picked != null && picked != currentDate) {
+    if (picked != currentDate) {
       // picked.then((value) {
       setState(() {
         currentDate = picked;

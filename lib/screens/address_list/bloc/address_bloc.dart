@@ -40,8 +40,11 @@ class AddressBloc extends Bloc<AddressBaseEvent, AddressBaseState> {
     } else if (event is SetDefaultAddressEvent) {
       emit(ShowLoaderState());
       try {
-        SetDefaultAddress? baseModel =
-            await repository?.setDefaultAddress(event.id);
+        final baseModel = await repository?.setDefaultAddress(event.id);
+
+        if (baseModel == null) {
+          throw Exception("setDefaultAddress returned null");
+        }
         if (baseModel.success == true) {
           emit(SetDefaultAddressState.success(addressModel: baseModel));
         } else {

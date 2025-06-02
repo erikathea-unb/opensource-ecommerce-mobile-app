@@ -301,19 +301,17 @@ class _DownloadableOrderFiltersState extends State<DownloadableOrderFilters> {
 
     String formattedDate = DateFormat('yyyy-MM-dd').format(date);
 
-    if (picked != null) {
-      setState(() {
-        if(isFromDate){
-          fromDateController.text = formattedDate.toString();
-          fromDate = fromDateController.text;
-        }
-        else {
-          toDateController.text = formattedDate.toString();
-          toDate = toDateController.text;
-        }
-      });
+    setState(() {
+      if(isFromDate){
+        fromDateController.text = formattedDate.toString();
+        fromDate = fromDateController.text;
+      }
+      else {
+        toDateController.text = formattedDate.toString();
+        toDate = toDateController.text;
+      }
+    });
     }
-  }
 
   void setSelectedDate(int index) {
     String formattedDateFrom;

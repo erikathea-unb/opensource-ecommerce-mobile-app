@@ -28,7 +28,7 @@ class AddEditAddressBloc
       Emitter<AddEditAddressBaseState> emit) async {
     if (event is FetchEditAddressEvent) {
       try {
-        UpdateAddressModel? updateAddressModel =
+        final updateAddressModel =
             await repository?.callEditAddressApi(
                 event.addressId ?? 0,
                 event.companyName ?? "",
@@ -42,8 +42,10 @@ class AddEditAddressBloc
                 event.phone ?? "",
                 event.vatId ?? "",
                 event.isDefault ?? false, event.email ?? appStoragePref.getCustomerEmail());
-
-        if (updateAddressModel?.status == true) {
+        if (updateAddressModel == null) {
+          throw Exception("UpdateAddressModel returned null");
+        }
+        if (updateAddressModel.status == true) {
           emit(
             FetchEditAddressState.success(
               updateAddressModel: updateAddressModel,
@@ -52,7 +54,7 @@ class AddEditAddressBloc
         } else {
           emit(
             FetchEditAddressState.fail(
-              error: updateAddressModel?.graphqlErrors ?? "",
+              error: updateAddressModel.graphqlErrors ?? "",
             ),
           );
         }

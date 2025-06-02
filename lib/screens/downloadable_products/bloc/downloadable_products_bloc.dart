@@ -53,13 +53,16 @@ class DownloadableProductsBloc
       }
     } else if (event is DownloadBase64ProductEvent) {
       try {
-        DownloadLinkDataModel? linkData =
+        final linkData =
             await repository?.dataBase64ProductModel(event.id);
-        if (linkData?.success == true) {
+        if (linkData == null) {
+          throw Exception("DownloadLinkDataModel returned null");
+        }
+        if (linkData.success == true) {
           emit(DownloadBase64ProductState.success(
               downloadLinkProduct: linkData));
         } else {
-          emit(DownloadBase64ProductState.fail(error: linkData?.graphqlErrors));
+          emit(DownloadBase64ProductState.fail(error: linkData.graphqlErrors));
         }
       } catch (e) {
         emit(DownloadBase64ProductState.fail(
