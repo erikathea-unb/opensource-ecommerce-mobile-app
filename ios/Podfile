@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-platform :ios, '16.0' # Updated to a higher deployment target
+platform :ios, '18.5' # Updated to a higher deployment target
 
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
@@ -42,7 +42,8 @@ post_install do |installer|
     flutter_additional_ios_build_settings(target)
 
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0' # Updated to match the platform
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '18.5' # Updated to match the platform
+      config.build_settings['SWIFT_VERSION'] = '6.1' # Ensure Swift version is set
     end
   end
 end

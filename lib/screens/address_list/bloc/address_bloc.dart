@@ -42,11 +42,11 @@ class AddressBloc extends Bloc<AddressBaseEvent, AddressBaseState> {
       try {
         SetDefaultAddress? baseModel =
             await repository?.setDefaultAddress(event.id);
-        if (baseModel?.success == true) {
+        if (baseModel.success == true) {
           emit(SetDefaultAddressState.success(addressModel: baseModel));
         } else {
           emit(SetDefaultAddressState.fail(
-              message: baseModel?.message ?? baseModel?.graphqlErrors));
+              message: baseModel.message ?? baseModel.graphqlErrors));
         }
       } catch (e) {
         emit(SetDefaultAddressState.fail(
