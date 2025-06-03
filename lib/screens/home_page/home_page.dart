@@ -314,7 +314,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> getHomePageData(ThemeCustomDataModel? customHomeData) async {
-    customHomeData?.themeCustomization ??= [];
+    if (customHomeData == null) {
+      debugPrint('Warning: customHomeData is null. Skipping home page prefetch.');
+      return;
+    }
+    customHomeData.themeCustomization ??= [];
     await Future.wait(customHomeData!.themeCustomization!.map((element) async {
       List<Map<String, dynamic>>? filters = [];
 
